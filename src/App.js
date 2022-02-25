@@ -8,28 +8,38 @@ import EyeCare from "./pages/EyeCare";
 import EarCare from "./pages/EarCare";
 
 function App() {
-  const [dashboard, setDashboard] = useState(false);
+  const [dashboard, setDashboard] = useState(true);
+  const [backcare, setBackcare] = useState(false);
+  const [eyecare, setEyecare] = useState(false);
+  const [earcare, setEarcare] = useState(false);
+
+  const navigate = (id) => {
+    const components = [setDashboard, setBackcare, setEyecare, setEarcare];
+
+    for(let i = 0; i < components.length; i++) {
+      if(i !== id){
+        components[i](false);
+      }
+    }
+
+    components[id](true);
+  }
 
   return (
     <>
       <Nav></Nav>
 
       <div className="main-wrapper">
-        <Sidebar setDashboard={setDashboard}></Sidebar>
+        <Sidebar navigate={navigate} ></Sidebar>
 
-        {/* {dashboard && <Dashboard />} */}
+        {dashboard && <Dashboard />}
 
-        {/* <EarCare/> */}
-        <EyeCare/>
-        {/* <BackCare/> */}
-        {/* <div style={{ flexGrow: "1" }}>
-          <h1>Back Care</h1>
-          <div class="main-graph" style={{ flexGrow: "1", padding: "2rem" }}>
-            <div style={{ maxWidth: "500px", height: "100vh" }}>
-              <div style={{ margin: "auto" }}></div>
-            </div>
-          </div>
-        </div> */}
+        {earcare && <EarCare/>}
+        
+        {eyecare && <EyeCare />}
+
+        {backcare && <BackCare/>}
+
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import { LineChart } from '../components/charts/LineChart';
-import PieChart from '../components/charts/PieChart';
 
 const EyeCare = () => {
     return (
