@@ -21,6 +21,10 @@ const Sidebar = () => {
           <span>Ear Care</span>
         </li>
         <li>
+          <i className="fa-regular fa-face-smile-beam"></i>
+          <span>Settings</span>
+        </li>
+        <li>
           <i className="fa-solid fa-gear"></i>
           <span>Settings</span>
         </li>
