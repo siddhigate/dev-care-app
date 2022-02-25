@@ -10,5 +10,6 @@
 
 @import './components/nav.css';
 @import './components/toggle.css';
+@import './components/sidebar.css';
 
 /* @import './pages/dashboard.css'; */
