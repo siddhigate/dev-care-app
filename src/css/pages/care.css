@@ -19,6 +19,13 @@
   margin: auto;
 }
 
+.main-graph-wrapper .main .line-graph {
+  max-width: 100%;
+  margin: auto;
+  
+  height: 100%;
+}
+
 .main-graph-wrapper .cards-container {
   width: 35%;
 }
