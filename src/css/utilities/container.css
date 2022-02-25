@@ -1,0 +1,24 @@
+.container-center-xl {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container-center-lg {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.container-center-md {
+    max-width: 800px;
+    margin: auto;
+}
+
+.container-center-xs {
+    max-width: 650px;
+    margin: auto;
+}
+
+.container-center-sm {
+    max-width: 450px;
+    margin: auto;
+}
