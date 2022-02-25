@@ -3,7 +3,6 @@ import Sidebar from "./components/core/Sidebar";
 import "./css/style.css";
 import Dashboard from "./pages/Dashboard";
 import { useState } from "react";
-import PieChart from "./components/charts/PieChart";
 import BackCare from "./pages/BackCare";
 
 function App() {
