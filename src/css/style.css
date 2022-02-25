@@ -11,5 +11,6 @@
 @import './components/nav.css';
 @import './components/toggle.css';
 @import './components/sidebar.css';
+@import './components/timerclock.css';
 
 /* @import './pages/dashboard.css'; */
