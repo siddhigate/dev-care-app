@@ -15,4 +15,4 @@
 @import './components/sidebar.css';
 @import './components/timerclock.css';
 
-/* @import './pages/dashboard.css'; */
+@import './pages/dashboard.css';
