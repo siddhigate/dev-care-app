@@ -22,8 +22,7 @@
 .main-graph-wrapper .main .line-graph {
   max-width: 100%;
   margin: auto;
-  
-  height: 100%;
+  min-height: 60vh;
 }
 
 .main-graph-wrapper .cards-container {
@@ -117,5 +116,13 @@
         max-width: 70vw;
         margin: 0;
       }
+
+      
+.main-graph-wrapper .main .line-graph {
+  max-width: 100%;
+  margin: auto;
+  min-height: 50vh;
+}
+
 
 }

@@ -37,5 +37,7 @@ const data = {
 };
 
 export function LineChart() {
-  return <Line data={data}/>;
+  return <Line data={data} options = {{
+    responsive: true,
+    maintainAspectRatio: false}}/>;
 }

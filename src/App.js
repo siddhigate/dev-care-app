@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import { useState } from "react";
 import BackCare from "./pages/BackCare";
 import EyeCare from "./pages/EyeCare";
+import EarCare from "./pages/EarCare";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -18,6 +19,7 @@ function App() {
 
         {/* {dashboard && <Dashboard />} */}
 
+        {/* <EarCare/> */}
         <EyeCare/>
         {/* <BackCare/> */}
         {/* <div style={{ flexGrow: "1" }}>
