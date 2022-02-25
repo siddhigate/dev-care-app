@@ -4,6 +4,7 @@ import "./css/style.css";
 import Dashboard from "./pages/Dashboard";
 import { useState } from "react";
 import PieChart from "./components/charts/PieChart";
+import BackCare from "./pages/BackCare";
 
 function App() {
   const [dashboard, setDashboard] = useState(false);
@@ -17,27 +18,7 @@ function App() {
 
         {dashboard && <Dashboard />}
 
-        <div className="main-graph-wrapper">
-          <main className="main">
-            <h1>Back Care</h1>
-            <div className="graph">
-              <PieChart></PieChart>
-            </div>
-          </main>
-          <div className="cards-container">
-              <div className="card">
-                <p className="fw-bold fs-lg">How it works?</p>
-                <p className="fs-sm mb-md">Find out how this feature works</p>
-                <button className="btn btn-primary">Find out</button>
-              </div>
-              <div className="card">
-                <p className="fw-bold fs-lg">Take new pics</p>
-                <p className="fs-sm mb-md">Will help the app to determine whether you are sitting in correct posture or not</p>
-                <button className="btn btn-primary">Take pics</button>
-              </div>
-          </div>
-        </div>
-
+        <BackCare/>
         {/* <div style={{ flexGrow: "1" }}>
           <h1>Back Care</h1>
           <div class="main-graph" style={{ flexGrow: "1", padding: "2rem" }}>
