@@ -60,3 +60,15 @@ input[type="checkbox"]:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.25rem;
+}
+
+.option {
+  display: flex;
+  justify-content: space-evenly;
+}
