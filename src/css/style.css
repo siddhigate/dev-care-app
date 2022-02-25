@@ -6,7 +6,7 @@
 @import './base/root.css';
 @import './base/reset.css';
 
-
+@import './utilities/spacing.css';
 @import './utilities/flex.css';
 @import './utilities/typography.css';
 
@@ -16,3 +16,4 @@
 @import './components/timerclock.css';
 
 @import './pages/dashboard.css';
+@import './pages/care.css';
