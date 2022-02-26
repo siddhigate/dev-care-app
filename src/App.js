@@ -8,6 +8,7 @@ import Dashboard from "./screens/Dashboard";
 import BackCare from "./screens/BackCare";
 import EyeCare from "./screens/EyeCare";
 import EarCare from "./screens/EarCare";
+import Exercise from "./screens/Exercise";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/backcare" element={<BackCare />} />
       <Route path="/eyecare" element={<EyeCare />} />
       <Route path="/earcare" element={<EarCare />} />
+      <Route path="/exercise" element={<Exercise />} />
     </Routes>
   </BrowserRouter>
   );

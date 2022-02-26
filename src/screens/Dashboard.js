@@ -10,6 +10,7 @@ import { notify } from "../services/notifications";
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
+    console.log(window.location.href);
     notify(window.location.href);
     return null;
   } else {
@@ -77,7 +78,7 @@ function Dashboard() {
             </div>
             <div className="cta">
               <div>
-                <button className="btn btn-primary">Start</button>
+                <button className="btn btn-primary" onClick={restart}>Start</button>
               </div>
             </div>
           </div>

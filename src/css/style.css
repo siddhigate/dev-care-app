@@ -14,6 +14,7 @@
 @import './components/toggle.css';
 @import './components/sidebar.css';
 @import './components/timerclock.css';
+@import './components/modal.css';
 
 @import './pages/dashboard.css';
 @import './pages/care.css';
