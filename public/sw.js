@@ -7,6 +7,7 @@ self.addEventListener('notificationclick', function(event) {
       console.log(event.notification.data)
       self.clients.openWindow(event.notification.data+'/exercise')
       console.log('Notification Click.');
+      event.notification.close();
       return;
     }
   
