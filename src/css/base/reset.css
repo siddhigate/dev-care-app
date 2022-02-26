@@ -40,6 +40,11 @@ select {
   font: inherit;
 }
 
+a {
+  text-decoration: none;
+  color: inherit
+}
+
 /* Remove all animations, for users who have turned them off */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {

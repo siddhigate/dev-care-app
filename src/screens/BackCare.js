@@ -1,8 +1,15 @@
-import React from 'react';
+import Nav from "../components/core/Nav";
+import Sidebar from "../components/core/Sidebar";
 import PieChart from '../components/charts/PieChart';
+import "../css/style.css";
 
-const BackCare = () => {
-    return (
+function BackCare() {
+
+  return (
+    <>
+      <Nav></Nav>
+      <div className="main-wrapper">
+        <Sidebar ></Sidebar>
         <div className="main-graph-wrapper">
         <main className="main">
           <h1>Back Care</h1>
@@ -24,7 +31,9 @@ const BackCare = () => {
         </div>
       </div>
 
-    );
-};
+      </div>
+    </>
+  );
+}
 
 export default BackCare;
