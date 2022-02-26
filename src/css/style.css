@@ -9,6 +9,9 @@
 @import './utilities/spacing.css';
 @import './utilities/flex.css';
 @import './utilities/typography.css';
+@import './utilities/container.css';
+@import './utilities/colors.css';
+@import './utilities/spacing.css';
 
 @import './components/nav.css';
 @import './components/toggle.css';
@@ -18,3 +21,4 @@
 
 @import './pages/dashboard.css';
 @import './pages/care.css';
+@import './pages/trainback.css';
