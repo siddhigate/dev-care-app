@@ -1,5 +1,6 @@
-export const notify = () => {
-  navigator.serviceWorker.register('sw.js');
+export const notify = (url) => {
+    
+  console.log("hereeeeeeee");
     Notification.requestPermission(function(result) {
         if (result === 'granted') {
             
@@ -7,12 +8,13 @@ export const notify = () => {
             registration.showNotification('Exercise Time', {
               body: 'Look away from the screen',
               icon: './assets/cartoon/smileydev.png',
+              data: url,
               vibrate: [200, 100, 200, 100, 200, 100, 200],
               tag: 'Exercise Reminder',
               requireInteraction: true,
               actions: [{
-                action: 'coffee-action',
-                title: 'Coffee'
+                action: 'exercise-action',
+                title: 'Do exercise'
               }],
             });
             console.log()

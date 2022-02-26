@@ -10,7 +10,7 @@ import { notify } from "../services/notifications";
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
-    notify();
+    notify(window.location.href);
     return null;
   } else {
     return (
@@ -23,7 +23,7 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 };
 
 function Dashboard() {
-  const [time, setTime] = useState(100);
+  const [time, setTime] = useState(50);
 
   const timerRef = useRef(null);
 
@@ -36,6 +36,9 @@ function Dashboard() {
     setTime(20000);
   };
 
+  useEffect(() => {
+    navigator.serviceWorker.register('sw.js');
+  }, [])
   
     // const stopHandler = () => {
       
@@ -52,11 +55,6 @@ function Dashboard() {
   useEffect(() => {
     startHandler();
   }, [time]);
-
-  
-  useEffect(() => {
-    navigator.serviceWorker.register('sw.js');
-  }, [])
 
   return (
     <>
