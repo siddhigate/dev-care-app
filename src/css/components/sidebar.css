@@ -1,0 +1,37 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.sidebar-links {
+    list-style: none;
+    margin: 2rem auto;
+}
+
+
+.sidebar-links li {
+    margin: 1.5rem 0;
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+}
+
+.sidebar-links i {
+    display: block;
+    font-size: 1.25rem;
+    color: var(--clr-primary-500)       
+}
+
+.sidebar-links span {
+    display: block;
+}
+
+.sidebar-links li:hover {
+    background-color: var(--clr-primary-50);
+    font-weight: 500;
+}

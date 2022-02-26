@@ -1,0 +1,36 @@
+import React from "react";
+
+const Sidebar = ({navigate}) => {
+  return (
+    <aside className="sidebar">
+      <ul className="sidebar-links">
+        <li onClick={() => navigate(0)}>
+          <i className="fa-solid fa-house-chimney"></i>
+          <span className="fw-bold">Dashboard</span>
+        </li >
+        <li onClick={() => navigate(1)}>
+          <i className="fa-solid fa-child"></i>
+          <span>Back care</span>
+        </li>
+        <li onClick={() => navigate(2)}>
+          <i className="fa-solid fa-eye"></i>
+          <span>Eye Care</span>
+        </li>
+        <li onClick={() => navigate(3)}>
+          <i className="fa-solid fa-ear-listen"></i>
+          <span>Ear Care</span>
+        </li>
+        <li>
+          <i className="fa-regular fa-face-smile-beam"></i>
+          <span>Settings</span>
+        </li>
+        <li onClick={() => navigate(0)}>
+          <i className="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </li>
+      </ul>
+    </aside>
+  );
+};
+
+export default Sidebar;
