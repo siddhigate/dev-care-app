@@ -1,13 +1,20 @@
-import React from 'react';
-import { BarChart } from '../components/charts/BarChart';
+import Nav from "../components/core/Nav";
+import Sidebar from "../components/core/Sidebar";
+import "../css/style.css";
+import { LineChart } from '../components/charts/LineChart';
 
-const EarCare = () => {
-    return (
+function EyeCare() {
+
+  return (
+    <>
+      <Nav></Nav>
+      <div className="main-wrapper">
+        <Sidebar ></Sidebar>
         <div className="main-graph-wrapper">
         <main className="main">
-          <h1 clasName="mb-xxl">Ear Care</h1>
+          <h1 className="mb-xxl">Eye Care</h1>
           <div className="line-graph">
-            <BarChart/>
+            <LineChart> </LineChart>
           </div>
         </main>
         <div className="cards-container">
@@ -24,7 +31,10 @@ const EarCare = () => {
         </div>
       </div>
 
-    );
-};
 
-export default EarCare;
+      </div>
+    </>
+  );
+}
+
+export default EyeCare;
