@@ -4,6 +4,8 @@ self.addEventListener('notificationclick', function(event) {
 
     if (!event.action) {
       // Was a normal notification click
+      console.log(event.notification.data)
+      self.clients.openWindow(event.notification.data+'/exercise')
       console.log('Notification Click.');
       return;
     }
