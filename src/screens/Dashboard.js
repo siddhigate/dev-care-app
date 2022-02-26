@@ -23,7 +23,7 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 };
 
 function Dashboard() {
-  const [time, setTime] = useState(20);
+  const [time, setTime] = useState(100);
 
   const timerRef = useRef(null);
 
@@ -52,6 +52,11 @@ function Dashboard() {
   useEffect(() => {
     startHandler();
   }, [time]);
+
+  
+  useEffect(() => {
+    navigator.serviceWorker.register('sw.js');
+  }, [])
 
   return (
     <>
