@@ -24,3 +24,25 @@ export const notify = (url) => {
         const audio = new Audio("https://soundbible.com/mp3/service-bell_daniel_simion.mp3");
         audio.play();
   }
+
+  export const notifySitStraight = (url) => {
+    
+    console.log("hereeeeeeee");
+      Notification.requestPermission(function(result) {
+          if (result === 'granted') {
+              
+            navigator.serviceWorker.ready.then(function(registration) {
+              registration.showNotification('Sit Straight', {
+                body: 'Bad posture sit straight',
+                icon: './assets/cartoon/saddev.png',
+                data: url,
+                vibrate: [200, 100, 200, 100, 200, 100, 200],
+                tag: 'Sit straight',
+              });
+              console.log()
+            });
+          }
+        });
+        const audio = new Audio("https://soundbible.com/mp3/service-bell_daniel_simion.mp3");
+        audio.play();
+  }

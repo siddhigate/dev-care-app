@@ -2,6 +2,8 @@ import Nav from "../components/core/Nav";
 import Sidebar from "../components/core/Sidebar";
 import PieChart from '../components/charts/PieChart';
 import "../css/style.css";
+import { Link } from "react-router-dom";
+
 
 function BackCare() {
 
@@ -26,7 +28,7 @@ function BackCare() {
             <div className="card">
               <p className="fw-bold fs-lg">Take new pics</p>
               <p className="fs-sm mb-md">Will help the app to determine whether you are sitting in correct posture or not</p>
-              <button className="btn btn-primary">Take pics</button>
+              <Link to="/teachbackcare">  <button className="btn btn-primary">Take pics</button> </Link>
             </div>
         </div>
       </div>
