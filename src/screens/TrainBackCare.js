@@ -1,12 +1,11 @@
 import Nav from "../components/core/Nav";
 import Modal from "../components/core/Modal";
 import Webcam from "react-webcam";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as mobilenetModule from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
 import { model } from "@tensorflow/tfjs";
-
 
 const toDatasetObject = async (dataset) => {
   const result = await Promise.all(
@@ -16,25 +15,32 @@ const toDatasetObject = async (dataset) => {
       return {
         label: classId,
         data: Array.from(data),
-        shape: value.shape
+        shape: value.shape,
       };
     })
   );
 
   return result;
-}
+};
 
 const classifier = knnClassifier.create();
 
 const TrainBackCare = () => {
-  
   const [isError, setIsError] = useState(false);
-  const[count, setCount] = useState(0);
-  
+  const [goodPicsCount, setGoodPicsCount] = useState(0);
+  const [badPicsCount, setBadPicsCount] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [isTrained, setIsTrained] = useState(false);
+  const [result, setResult] = useState(null);
+
   const webcamRef = useRef(null);
 
   const trainModel = async (classId) => {
     // let img = takePicture();
+
+    setSaving(true);
+
     let img = webcamRef.current.video;
     console.log(img);
     let mobilenet = await mobilenetModule.load();
@@ -42,29 +48,49 @@ const TrainBackCare = () => {
     classifier.addExample(activation, classId);
     console.log(classifier.getNumClasses());
 
-    setCount(count + 1);
+    setSaving(false);
+
+    if (classId === "good") {
+      setGoodPicsCount(goodPicsCount + 1);
+    }
+
+    if (classId === "bad") {
+      setBadPicsCount(badPicsCount + 1);
+    }
   };
 
   const saveModel = async () => {
     let dataset = classifier.getClassifierDataset();
     console.log(dataset);
 
-    // var datasetObj = {};
-    // Object.keys(dataset).forEach((key) => {
-    //   let data = dataset[key].dataSync();
-    //   datasetObj[key] = Array.from(data);
-    // });
-    // console.log(datasetObj);
     let datasetObj = await toDatasetObject(dataset);
-    console.log("dobj",datasetObj);
+    console.log("dobj", datasetObj);
     let jsonStr = JSON.stringify(datasetObj);
     localStorage.setItem("myData", jsonStr);
     console.log("done", localStorage.getItem("myData"));
+    setIsTrained(true);
+  };
+
+  const classifyPic = async () => {
+    setResult("finding if your posture is correct")
+    let net = await mobilenetModule.load();
+    const img = webcamRef.current.video;
+    // Get the activation from mobilenet from the webcam.
+    const activation = net.infer(img, true);
+    const result = await classifier.predictClass(activation);
+    console.log(result);
+    setResult(result.label)
   };
 
   const showError = () => {
     setIsError(true);
   };
+
+  useEffect(() => {
+    if (goodPicsCount >= 2 && badPicsCount >= 2) {
+      setIsDisabled(false);
+    }
+  }, [goodPicsCount, badPicsCount]);
 
   return (
     <>
@@ -99,22 +125,35 @@ const TrainBackCare = () => {
               }}
             />
           </div>
-          {count}
+
           <div className="train-back-btns flex flex-col flex-justify-center">
+            {saving && (
+              <div
+                className="txt-center"
+                style={{ padding: "1rem", maxWidth: "40ch" }}
+              >
+                Please wait. The app is learning about your posture.
+              </div>
+            )}
             <button className="bg-green" onClick={() => trainModel("good")}>
-              Take Good Pic
+              Take Good Pic <span>{goodPicsCount}</span>
             </button>
             <button className="bg-red" onClick={() => trainModel("bad")}>
-              Take Bad Pic
+              Take Bad Pic <span>{badPicsCount}</span>
             </button>
             <button
               className="bg-primary"
               onClick={() => saveModel()}
-              // disabled={isDisabled}
-              // onClick={saveModel}
+              disabled={isDisabled}
             >
               Done
             </button>
+            {isTrained && (
+              <button className="bg-primary" onClick={() => classifyPic()}>
+                Test Check Posture
+              </button>
+            )}
+            { (isTrained && result)  && <div className="txt-center">{result}</div>}
           </div>
         </div>
       </main>
