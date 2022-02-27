@@ -1,7 +1,5 @@
 self.addEventListener('notificationclick', function(event) {
 
-    console.log(event)
-
     if (!event.action) {
       // Was a normal notification click
       console.log(event.notification.data)
@@ -10,10 +8,6 @@ self.addEventListener('notificationclick', function(event) {
       event.notification.close();
       return;
     }
-  
-    console.log("hereeeeeeeeeee")
-
-    event.notification.close();
 
     switch (event.action) {
       case 'exercise-action':
