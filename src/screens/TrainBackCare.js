@@ -7,12 +7,31 @@ import * as mobilenetModule from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
 import { model } from "@tensorflow/tfjs";
 
+
+const toDatasetObject = async (dataset) => {
+  const result = await Promise.all(
+    Object.entries(dataset).map(async ([classId, value]) => {
+      const data = await value.data();
+
+      return {
+        label: classId,
+        data: Array.from(data),
+        shape: value.shape
+      };
+    })
+  );
+
+  return result;
+}
+
+const classifier = knnClassifier.create();
+
 const TrainBackCare = () => {
   
   const [isError, setIsError] = useState(false);
+  const[count, setCount] = useState(0);
   
   const webcamRef = useRef(null);
-  const classifier = knnClassifier.create();
 
   const trainModel = async (classId) => {
     // let img = takePicture();
@@ -22,18 +41,22 @@ const TrainBackCare = () => {
     let activation = mobilenet.infer(img, true);
     classifier.addExample(activation, classId);
     console.log(classifier.getNumClasses());
+
+    setCount(count + 1);
   };
 
-  const saveModel = () => {
+  const saveModel = async () => {
     let dataset = classifier.getClassifierDataset();
     console.log(dataset);
 
-    var datasetObj = {};
-    Object.keys(dataset).forEach((key) => {
-      let data = dataset[key].dataSync();
-      datasetObj[key] = Array.from(data);
-    });
-    console.log(datasetObj);
+    // var datasetObj = {};
+    // Object.keys(dataset).forEach((key) => {
+    //   let data = dataset[key].dataSync();
+    //   datasetObj[key] = Array.from(data);
+    // });
+    // console.log(datasetObj);
+    let datasetObj = await toDatasetObject(dataset);
+    console.log("dobj",datasetObj);
     let jsonStr = JSON.stringify(datasetObj);
     localStorage.setItem("myData", jsonStr);
     console.log("done", localStorage.getItem("myData"));
@@ -76,6 +99,7 @@ const TrainBackCare = () => {
               }}
             />
           </div>
+          {count}
           <div className="train-back-btns flex flex-col flex-justify-center">
             <button className="bg-green" onClick={() => trainModel("good")}>
               Take Good Pic

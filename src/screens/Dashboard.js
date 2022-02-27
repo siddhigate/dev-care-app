@@ -8,6 +8,11 @@ import Countdown, { zeroPad } from "react-countdown";
 import { useEffect, useRef, useState } from "react";
 import { notify } from "../services/notifications";
 
+import * as mobilenetModule from "@tensorflow-models/mobilenet";
+import * as knnClassifier from "@tensorflow-models/knn-classifier";
+import * as tf from '@tensorflow/tfjs';
+import { model } from "@tensorflow/tfjs";
+
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     console.log(window.location.href);
@@ -23,6 +28,22 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
   }
 };
 
+const fromDatasetObject = (datasetObject)  => {
+  return Object.entries(datasetObject).reduce(
+    (result, [indexString, { data, shape }]) => {
+      const tensor = tf.tensor2d(data, shape);
+      const index = Number(indexString);
+
+      result[index] = tensor;
+
+      return result;
+    },
+    {}
+  );
+}
+
+const classifier = knnClassifier.create();
+
 function Dashboard() {
   const [time, setTime] = useState(50);
 
@@ -34,11 +55,18 @@ function Dashboard() {
   };
 
   const restart = () => {
+    console.log(classifier.getNumClasses());
     setTime(20000);
   };
 
   useEffect(() => {
     navigator.serviceWorker.register('sw.js');
+    let str = localStorage.getItem("myData")
+    console.log("mydata",JSON.parse(str))
+    classifier.setClassifierDataset(
+      fromDatasetObject(JSON.parse(localStorage.getItem("myData")))
+   );
+   console.log(classifier.getNumClasses());
   }, [])
   
     // const stopHandler = () => {
