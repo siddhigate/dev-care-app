@@ -11,6 +11,7 @@ const OnboardingName = ({ setCard }) => {
   };
 
   const clickHandler = (e) => {
+    e.preventDefault();
     if (name.length > 1) {
       setCard("features");
     } else {
@@ -29,9 +30,10 @@ const OnboardingName = ({ setCard }) => {
           style={{ width: "50%" }}
         ></img>
       </div>
-
+      <form name="name" data-netlify="true">
       <div>
         <p className="mt-sm">What can I call you?</p>
+        
         <input
           className="mt-md mb-md"
           type="text"
@@ -44,12 +46,14 @@ const OnboardingName = ({ setCard }) => {
 
       <div className="flex flex-col flex-items-end">
         <button
+          type="submit"
           style={{ background: "var(--clr-primary-500) " }}
           onClick={clickHandler}
         >
           Next
         </button>
       </div>
+      </form>
     </div>
   );
 };
