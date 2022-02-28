@@ -30,7 +30,7 @@ const OnboardingName = ({ setCard }) => {
           style={{ width: "50%" }}
         ></img>
       </div>
-      <form name="name" data-netlify="true">
+      <form name="name" data-netlify="true" netlify>
       <div>
         <p className="mt-sm">What can I call you?</p>
         
