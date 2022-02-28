@@ -6,7 +6,8 @@ import TimerClock from "../components/core/TimerClock";
 import Toggles from "../components/core/Toggles";
 import Countdown, { zeroPad } from "react-countdown";
 import { useEffect, useRef, useState } from "react";
-import { notify, notifySitStraight } from "../services/notifications";
+import { notify, notifyEar, notifySitStraight } from "../services/notifications";
+import {setEarData} from "../services/datahandling";
 
 import Webcam from "react-webcam";
 import * as mobilenetModule from "@tensorflow-models/mobilenet";
@@ -48,6 +49,7 @@ const fromDatasetObject = (datasetObject) => {
 };
 
 let i = 0;
+let timeCounter = 1;
 
 const classifier = knnClassifier.create();
 
@@ -62,7 +64,9 @@ function Dashboard() {
 
   const [backOption, setBackOption] = useState(true);
   const [eyeOption, setEyeOption] = useState(true);
-  const [soundOption, setSoundOption] = useState(true);
+  const [soundOption, setSoundOption] = useState(false);
+  const [isPluggedOut, setIsPluggedOut] = useState();
+  const [earDeviceId, setEarDeviceId] = useState("");
 
   const webcamRef = useRef(null);
   const timerRef = useRef(null);
@@ -84,8 +88,13 @@ function Dashboard() {
       setIsCamOn(true);
     }
     if(eyeOption) {
-      notify(window.location.href, soundOption);
+      notify(window.location.href);
     }
+    if(soundOption && timeCounter%2 === 0 && !isPluggedOut){
+      notifyEar(window.location.href);
+      setEarData();
+    }
+    timeCounter++;
     restart();
   };
 
@@ -110,6 +119,10 @@ function Dashboard() {
     let eyedata = localStorage.getItem("eyedata");
     if (!eyedata) {
       localStorage.setItem("eyedata", JSON.stringify([0, 0, 0, 0, 0, 0, 0]));
+    }
+    let eardata = localStorage.getItem("eardata");
+    if (!eardata) {
+      localStorage.setItem("eardata", JSON.stringify([0, 0, 0, 0, 0, 0, 0]));
     }
     navigator.serviceWorker.register("sw.js");
     let str = localStorage.getItem("myData");
@@ -147,6 +160,70 @@ function Dashboard() {
       }
     }
   };
+
+  // Ear Care
+  const getLocalStream = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: false, audio: true })
+      .then((stream) => {
+        console.log(stream);
+
+        console.log(stream.getAudioTracks()[0].getSettings());
+
+        setEarDeviceId(stream.getAudioTracks()[0].getSettings().deviceId);
+        console.log("0",stream.getAudioTracks()[0].getSettings().deviceId)
+        console.log("00",stream.getAudioTracks()[0].getSettings())
+        console.log("plugged in", earDeviceId);
+        if(earDeviceId == "default") {
+          console.log("defaultttttttttttttttttt")
+          setEarDeviceId(stream.getAudioTracks()[0].getSettings().groupId)
+        }
+
+        navigator.mediaDevices.enumerateDevices().then((devices) => {
+          // console.log("first devices");
+          // console.log(devices);
+
+          let recorder = new MediaRecorder(stream);
+          recorder.stream.getAudioTracks().forEach(function (track) {
+            track.enabled = false;
+          });
+        });
+      })
+      .catch((err) => {
+        setSoundOption(false);
+        console.log("u got an error:" + err);
+      });
+  }
+
+  useEffect(() => {
+    if (soundOption) {
+      console.log("on");
+      setIsPluggedOut(false);
+      getLocalStream();
+    }
+  }, [soundOption]);
+
+  navigator.mediaDevices.addEventListener("devicechange", () => {
+    console.log("here12");
+
+    // whenever device is plugged in or plugged out
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      // console.log("change");
+      // console.log(devices);
+      console.log(devices[0]);
+      var pluggedout = true;
+      for (let i = 0; i < devices.length; i++) {
+        if (devices[i].deviceId == earDeviceId != devices[i].groupId == earDeviceId) {
+          pluggedout = false;
+        }
+      }
+      if (pluggedout) {
+        setIsPluggedOut(true);
+        console.log("plugged out");
+      }
+    });
+  });
+
 
   return (
     <>

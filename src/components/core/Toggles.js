@@ -1,6 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const Toggles = ({backOption, setBackOption, eyeOption, setEyeOption, soundOption, setSoundOption}) => {
+const Toggles = ({
+  backOption,
+  setBackOption,
+  eyeOption,
+  setEyeOption,
+  soundOption,
+  setSoundOption,
+}) => {
 
   return (
     <div className="options">
@@ -8,7 +15,13 @@ const Toggles = ({backOption, setBackOption, eyeOption, setEyeOption, soundOptio
         <div>Back Care:</div>
         <div>
           <label className="switch">
-            <input type="checkbox" checked={backOption} onChange={e => {setBackOption(!backOption)}}></input>
+            <input
+              type="checkbox"
+              checked={backOption}
+              onChange={(e) => {
+                setBackOption(!backOption);
+              }}
+            ></input>
             <span className="slider round"></span>
           </label>
         </div>
@@ -17,7 +30,13 @@ const Toggles = ({backOption, setBackOption, eyeOption, setEyeOption, soundOptio
         <div>Eye Care:</div>
         <div>
           <label className="switch">
-            <input type="checkbox" checked={eyeOption} onChange={e => {setEyeOption(!eyeOption)}}></input>
+            <input
+              type="checkbox"
+              checked={eyeOption}
+              onChange={(e) => {
+                setEyeOption(!eyeOption);
+              }}
+            ></input>
             <span className="slider round"></span>
           </label>
         </div>
@@ -26,7 +45,13 @@ const Toggles = ({backOption, setBackOption, eyeOption, setEyeOption, soundOptio
         <div>Sound:</div>
         <div>
           <label className="switch">
-            <input type="checkbox" checked={soundOption} onChange={e => {setSoundOption(!soundOption)}}></input>
+            <input
+              type="checkbox"
+              checked={soundOption}
+              onChange={(e) => {
+                setSoundOption(!soundOption);
+              }}
+            ></input>
             <span className="slider round"></span>
           </label>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,24 +25,34 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: 'Ear Care Analysis',
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [10,20,30,40,30,20,50],
-      backgroundColor: 'rgba(0, 153, 246, 0.5)',
-    }
-  ],
-};
 
 export function BarChart() {
+
+  const [earData, setEarData] = useState([0,0,0,0,0,0,0])
+
+
+  useEffect(() => {
+    let earData = JSON.parse(localStorage.getItem("eardata"));
+    setEarData(earData);
+  }, [])
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Earphone Usage Time',
+        data: earData,
+        backgroundColor: 'rgba(0, 153, 246, 0.5)',
+      }
+    ],
+  };
+  
   return <Bar options={options} data={data} />;
 }

@@ -24,6 +24,12 @@ const Sidebar = () => {
           <span>Eye Care</span>
         </li>
         </Link>
+        <Link to="/earcare">
+        <li>
+          <i className="fa-solid fa-ear-listen"></i>
+          <span>Eear Care</span>
+        </li>
+        </Link>
         <Link to="/aboutus">
         <li>
           <i className="fa-solid fa-circle-info"></i>
