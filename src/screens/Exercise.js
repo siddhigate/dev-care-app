@@ -1,7 +1,7 @@
 import Modal from "../components/core/Modal";
 import { useEffect, useState } from "react";
 
-const ExerciseCard = ({setIsDone}) => {
+const ExerciseCard = ({ setIsDone }) => {
   return (
     <div className="modal-content" style={{ textAlign: "center" }}>
       <h1 className="h1">Take care👋</h1>
@@ -16,7 +16,12 @@ const ExerciseCard = ({setIsDone}) => {
       </div>
       <div className="txt-center desc">Look 20 feet away for 20 seconds.</div>
       <div className="btn-center">
-        <button className="done-btn btn btn-primary" onClick={() =>setIsDone(true)}>Done</button>
+        <button
+          className="done-btn btn btn-primary"
+          onClick={() => setIsDone(true)}
+        >
+          Done
+        </button>
       </div>
     </div>
   );
@@ -35,7 +40,9 @@ const DoneExerciseCard = () => {
           alt="exercise"
         />
       </div>
-      <div className="txt-center desc">Yayy! You have done the exercise. You can close this tab now.</div>
+      <div className="txt-center desc">
+        Yayy! You have done the exercise. You can close this tab now.
+      </div>
       <div className="btn-center">
         <button className="done-btn btn btn-primary">Done</button>
       </div>
@@ -44,7 +51,6 @@ const DoneExerciseCard = () => {
 };
 
 const Exercise = () => {
-
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
@@ -53,16 +59,16 @@ const Exercise = () => {
     let today = todayDate.getDay();
     eyedata[today] = Number(eyedata[today]) + 1;
     localStorage.setItem("eyedata", JSON.stringify(eyedata));
-  }, [])
+  }, []);
 
   return (
     <div>
       <Modal>
-
-        {
-          isDone ? <DoneExerciseCard></DoneExerciseCard>  : <ExerciseCard setIsDone={setIsDone}> </ExerciseCard>
-        }
-        
+        {isDone ? (
+          <DoneExerciseCard></DoneExerciseCard>
+        ) : (
+          <ExerciseCard setIsDone={setIsDone}> </ExerciseCard>
+        )}
       </Modal>
     </div>
   );

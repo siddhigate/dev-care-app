@@ -8,7 +8,6 @@ const Toggles = ({
   soundOption,
   setSoundOption,
 }) => {
-
   return (
     <div className="options">
       <div className="option">

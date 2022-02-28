@@ -25,7 +25,12 @@ function BackCare() {
             <div className="card">
               <p className="fw-bold fs-lg">How it works?</p>
               <p className="fs-sm mb-md">Find out how this feature works</p>
-              <button className="btn btn-primary" onClick={() => setShowModal(true)}>Find out</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowModal(true)}
+              >
+                Find out
+              </button>
             </div>
             <div className="card">
               <p className="fw-bold fs-lg">Take new pics</p>
@@ -45,8 +50,21 @@ function BackCare() {
       {showModal && (
         <Modal>
           <div className="onboarding-name">
-            <div className="flex flex-justify-between flex-items-center" style={{position: "relative"}}>
-            <i class="fa-solid fa-xmark" style={{position: "absolute", top:"0", right: "0", fontSize:"1.25rem", cursor: "pointer"}} onClick={() => setShowModal(false)}></i>
+            <div
+              className="flex flex-justify-between flex-items-center"
+              style={{ position: "relative" }}
+            >
+              <i
+                class="fa-solid fa-xmark"
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  right: "0",
+                  fontSize: "1.25rem",
+                  cursor: "pointer",
+                }}
+                onClick={() => setShowModal(false)}
+              ></i>
               <h2 className="fs-xl" style={{ flexGrow: "1" }}>
                 Back Care
               </h2>
@@ -80,9 +98,7 @@ function BackCare() {
                 Done
               </button>
             </div>
-            
           </div>
-          
         </Modal>
       )}
     </>

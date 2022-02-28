@@ -40,16 +40,13 @@ const TrainBackCare = () => {
   const webcamRef = useRef(null);
 
   const trainModel = async (classId) => {
-    // let img = takePicture();
-
     setSaving(true);
 
     let img = webcamRef.current.video;
-    console.log(img);
+
     let mobilenet = await mobilenetModule.load();
     let activation = mobilenet.infer(img, true);
     classifier.addExample(activation, classId);
-    console.log(classifier.getNumClasses());
 
     setSaving(false);
 
@@ -64,13 +61,12 @@ const TrainBackCare = () => {
 
   const saveModel = async () => {
     let dataset = classifier.getClassifierDataset();
-    console.log(dataset);
 
     let datasetObj = await toDatasetObject(dataset);
-    console.log("dobj", datasetObj);
+
     let jsonStr = JSON.stringify(datasetObj);
     localStorage.setItem("myData", jsonStr);
-    console.log("done", localStorage.getItem("myData"));
+
     setIsTrained(true);
     setShowDoneModal(true);
   };
@@ -82,7 +78,7 @@ const TrainBackCare = () => {
     // Get the activation from mobilenet from the webcam.
     const activation = net.infer(img, true);
     const result = await classifier.predictClass(activation);
-    console.log(result);
+
     setResult(result.label);
   };
 
@@ -162,7 +158,17 @@ const TrainBackCare = () => {
               </button>
             )}
             {isTrained && result && <div className="txt-center">{result}</div>}
-            {isTrained && <Link to="/"> <p className="txt-center fs-md mt-md txt-primary"> <span style={{borderBottom: "1px solid var(--clr-primary"}}>Back to home</span></p></Link>}
+            {isTrained && (
+              <Link to="/">
+                {" "}
+                <p className="txt-center fs-md mt-md txt-primary">
+                  {" "}
+                  <span style={{ borderBottom: "1px solid var(--clr-primary" }}>
+                    Back to home
+                  </span>
+                </p>
+              </Link>
+            )}
           </div>
         </div>
       </main>
@@ -210,15 +216,15 @@ const TrainBackCare = () => {
             <div>
               <div className="flex flex-col flex-wrap fs-sm steps">
                 <p className="mb-sm">
-                  <i className="fa-solid fa-camera"></i>Take pictures of good and
-                  bad posture{" "}
+                  <i className="fa-solid fa-camera"></i>Take pictures of good
+                  and bad posture{" "}
                 </p>
                 <p className="mb-sm">
                   <i className="fa-solid fa-check"></i>Click on Done to finish
                 </p>
                 <p className="mb-sm">
-                  <i className="fa-solid fa-circle-info"></i>More the pics better it
-                  will be to detect{" "}
+                  <i className="fa-solid fa-circle-info"></i>More the pics
+                  better it will be to detect{" "}
                 </p>
               </div>
             </div>
@@ -237,14 +243,26 @@ const TrainBackCare = () => {
       {showAlert && (
         <div className="alert-yellow flex flex-items-center">
           We don't save your data. Everything resides only on your browser.{" "}
-          <i className="fa-solid fa-xmark" onClick={() => setShowAlert(false)}></i>
+          <i
+            className="fa-solid fa-xmark"
+            onClick={() => setShowAlert(false)}
+          ></i>
         </div>
       )}
 
       {showDoneModal && (
         <Modal>
-          <div className="onboarding-name" style={{position: "relative"}}>
-            <i className="fa-solid fa-xmark" style={{position: "absolute", top:"5px", right:"5px", cursor: "pointer"}} onClick={() => setShowDoneModal(false)}></i>
+          <div className="onboarding-name" style={{ position: "relative" }}>
+            <i
+              className="fa-solid fa-xmark"
+              style={{
+                position: "absolute",
+                top: "5px",
+                right: "5px",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowDoneModal(false)}
+            ></i>
             <div className="flex flex-justify-between flex-items-center">
               <h2 className="fs-xl" style={{ flexGrow: "1" }}>
                 Yayy!
@@ -257,28 +275,34 @@ const TrainBackCare = () => {
 
             <div>
               <div className="flex flex-col flex-wrap fs-sm steps">
-              <p className="mb-sm fs-md">
-                  Now the app knows what a correct posture is. We are ready to use the app now!
+                <p className="mb-sm fs-md">
+                  Now the app knows what a correct posture is. We are ready to
+                  use the app now!
                 </p>
               </div>
             </div>
             <div className="flex flex-justify-center">
               <Link to="/">
-              <button
-                style={{ background: "var(--clr-primary-500)", margin:"1.25rem 1rem 0 1rem" }}
-                onClick={() => setShowDoneModal(false)}
-              >
-                Home
-              </button>
+                <button
+                  style={{
+                    background: "var(--clr-primary-500)",
+                    margin: "1.25rem 1rem 0 1rem",
+                  }}
+                  onClick={() => setShowDoneModal(false)}
+                >
+                  Home
+                </button>
               </Link>
-              
+
               <button
-                style={{ background: "var(--clr-primary-500)", margin:"1.25rem 1rem 0 1rem" }}
+                style={{
+                  background: "var(--clr-primary-500)",
+                  margin: "1.25rem 1rem 0 1rem",
+                }}
                 onClick={() => setShowDoneModal(false)}
               >
                 Test
               </button>
-              
             </div>
           </div>
         </Modal>
