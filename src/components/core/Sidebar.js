@@ -31,7 +31,7 @@ const Sidebar = () => {
         </Link>
         <Link to="/howtouse">
           <li>
-          <i class="fa-solid fa-circle-question"></i>
+          <i className="fa-solid fa-circle-question"></i>
             <span>How to use</span>
           </li>
         </Link>
