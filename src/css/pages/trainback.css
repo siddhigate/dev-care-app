@@ -1,0 +1,47 @@
+.train-back-btns {
+    flex-grow: 1;
+}
+
+.train-back-btns button {
+    /* background-color: var(--clr-primary); */
+    border: none;
+    outline: none;
+    margin: 1rem;
+    border-radius: 3px;
+    color: white;
+    padding: 0.75rem;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+}
+
+.train-back-btns button:disabled {
+    cursor: no-drop;
+    opacity: 0.3;
+}
+
+.train-back-btns button span {
+    position: absolute;
+    right: 1rem;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .train-wrapper {
+        flex-direction: column;
+    }
+
+    .train-back-btns {
+        width: 70%;
+        margin: auto;
+        
+    }
+
+    .train-back-btns button {
+        margin: auto;
+        width: 80%;
+        margin: 0.5rem;
+    }
+}

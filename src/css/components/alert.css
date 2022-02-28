@@ -1,0 +1,16 @@
+.alert-yellow {
+    position: absolute;
+    top: 3rem;
+    right: 1rem;
+    background-color: var(--clr-primary-300);
+    z-index: 9999;
+    padding: 0.5rem 0.5rem;
+    max-width: 50ch;
+    border-radius: 5px;
+}
+
+.alert-yellow i {
+    margin: 0 1rem;
+    cursor: pointer;
+    font-size: 1.25rem;
+}

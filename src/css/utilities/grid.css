@@ -1,0 +1,16 @@
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-col-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid-col-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-col-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}

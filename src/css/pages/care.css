@@ -1,0 +1,128 @@
+.main-graph-wrapper {
+  flex-grow: 1;
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+}
+
+.main-graph-wrapper .main {
+  flex-grow: 1;
+}
+
+.main-graph-wrapper .main h1 {
+    margin-bottom: 2rem;
+}
+
+.main-graph-wrapper .main .graph {
+  max-width: 500px;
+  margin: auto;
+}
+
+.main-graph-wrapper .main .line-graph {
+  max-width: 100%;
+  margin: auto;
+  min-height: 60vh;
+}
+
+.main-graph-wrapper .cards-container {
+  width: 35%;
+}
+
+.cards-container .card {
+  padding: 3rem 2rem;
+  box-shadow: var(--bs-gray);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem;
+  border: 1px solid var(--clr-secondary-light)
+}
+
+.card p {
+  color: var(--clr-secondary-dark);
+  line-height: 1.5;
+}
+
+.cards-container .card .btn-primary {
+  border: none;
+  color: white;
+  background-color: var(--clr-primary-400);
+  padding: 1rem 4rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1300px) {
+  .main-graph-wrapper {
+    flex-direction: column;
+  }
+
+  .main-graph-wrapper .main {
+    width: 100%;
+  }
+
+  .main-graph-wrapper .cards-container {
+      width: 100%;
+      display: flex;
+  }
+
+  .cards-container .card {
+      width: 45%;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+    .main-graph-wrapper .main .graph {
+        max-width: 450px;
+        margin: auto;
+      }
+      .main-graph-wrapper .cards-container {
+          margin-top: 2rem;
+        flex-direction: column;
+        
+      justify-content: center;
+      align-items: center;
+    }
+    .cards-container .card {
+        width: 70%;
+    }
+  
+    .main h1 {
+        display: block;
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main-graph-wrapper .main .graph {
+        max-width: 300px;
+        margin: auto;
+      }
+
+      .cards-container .card {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .main-graph-wrapper {
+        padding: 0.25rem;
+    }
+
+    .main-graph-wrapper .main .graph {
+        max-width: 70vw;
+        margin: 0;
+      }
+
+      
+.main-graph-wrapper .main .line-graph {
+  max-width: 100%;
+  margin: auto;
+  min-height: 50vh;
+}
+
+
+}

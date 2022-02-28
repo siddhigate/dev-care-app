@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./css/style.css";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Dashboard from "./screens/Dashboard";
+import BackCare from "./screens/BackCare";
+import EyeCare from "./screens/EyeCare";
+import EarCare from "./screens/EarCare";
+import Exercise from "./screens/Exercise";
+import TrainBackCare from "./screens/TrainBackCare";
+import Aboutus from "./screens/Aboutus";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/backcare" element={<BackCare />} />
+      <Route path="/eyecare" element={<EyeCare />} />
+      <Route path="/earcare" element={<EarCare />} />
+      <Route path="/exercise" element={<Exercise />} />
+      <Route path="/teachbackcare" element={<TrainBackCare />} />
+      <Route path="/aboutus" element={<Aboutus />} />
+    </Routes>
+  </BrowserRouter>
   );
 }
 

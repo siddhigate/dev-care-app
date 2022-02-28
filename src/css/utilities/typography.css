@@ -1,0 +1,127 @@
+/* 
+    Font Sizes 
+*/
+
+.fs-xxl {
+    font-size: var(--fs-xxl);
+}
+
+.fs-xl {
+    font-size: var(--fs-xl);
+}
+
+.fs-lg {
+    font-size: var(--fs-lg);
+}
+
+.fs-md {
+    font-size: var(--fs-md);
+}
+
+.fs-sm {
+    font-size: var(--fs-sm);
+}
+
+.fs-xs {
+    font-size: var(--fs-xs);
+}
+
+/* 
+    Font weights
+*/
+
+.fw-normal {
+    font-weight: var(--fw-normal);
+}
+
+.fw-semibold {
+    font-weight: var(--fw-semibold);
+}
+
+.fw-bold {
+    font-weight: var(--fw-bold);
+}
+
+.fw-bolder {
+    font-weight: var(--fw-bolder);
+}
+
+/* 
+    Text decoration
+*/
+
+.txt-underline {
+    text-decoration: underline;
+}
+
+.txt-strike-through {
+    text-decoration: line-through;
+}
+
+.txt-decoration-none {
+    text-decoration: none;
+}
+
+/* 
+    Text Transform
+*/
+
+.txt-uppercase {
+    text-transform: uppercase;
+}
+
+.txt-lowercase {
+    text-transform: lowercase;
+}
+
+.txt-capitalize {
+    text-transform: capitalize;
+}
+
+/* 
+    Text Alignment
+*/
+
+.txt-start {
+    text-align: left;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.txt-end {
+    text-align: right;
+}
+
+/* 
+    Headings 
+*/
+
+.heading-h1 {
+    font-size: calc(var(--fs-xxl) + 0.5vw);
+    line-height: var(--lh-xxl);
+}
+
+.heading-h2 {
+    font-size: calc(var(--fs-xl) + 0.5vw);
+    line-height: var(--lh-xl);
+}
+
+.heading-h3 {
+    font-size: calc(var(--fs-lg) + 0.5vw);
+    line-height: var(--lh-lg);
+}
+
+.heading-h4 {
+    font-size: calc(var(--fs-md) + 0.5vw);
+    line-height: var(--lh-md);
+}
+
+/* 
+    Line heights
+*/
+
+.lh-md {
+    line-height: var(--lh-md);
+}
