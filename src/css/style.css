@@ -18,7 +18,9 @@
 @import './components/sidebar.css';
 @import './components/timerclock.css';
 @import './components/modal.css';
+@import './components/alert.css';
 
 @import './pages/dashboard.css';
 @import './pages/care.css';
 @import './pages/trainback.css';
+@import './pages/onboarding.css';

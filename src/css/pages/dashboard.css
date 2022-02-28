@@ -43,18 +43,38 @@
 }
 
 .options {
-  width: 40%;
+  width: 30%;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-content .btn-primary {
   border: none;
-  background-color: var(--clr-primary-400);
-  padding: 1rem 4rem;
+  background-color: #2196f3;
+  padding: 1rem 5rem;
   color: white;
   font-size: 1.2rem;
-  border-radius: 10px;
-  margin-top: 1rem;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 1rem;
   cursor: pointer;
+}
+
+.main-content .btn-secondary {
+  border: none;
+  background-color: #DBEAFE;
+  padding: 1rem 5rem;
+  color: black;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  margin: 1rem 1rem 0 1rem;
+  cursor: pointer;
+}
+
+.main-content .btn-secondary:hover {
+  background-color: var(--clr-primary-500);
 }
 
 .cta {
@@ -66,7 +86,7 @@
 }
 
 .btn-primary:hover {
-  background-color: var(--clr-primary-500);
+  background-color: var(--clr-primary-600);
 }
 
 @media screen and (max-width: 1300px) {

@@ -1,0 +1,58 @@
+.onboarding-name {
+    margin: 0 1rem;
+}
+
+.onboarding-name input{
+    width: 100%;
+    border-radius: 4px;
+    padding: 0.5rem;
+    outline: 0;
+    border: 1px solid var(--clr-secondary-light);
+    margin: 0.25rem 0;
+}
+
+.onboarding-name input:focus {
+    border: 2px solid var(--clr-primary);
+}
+
+.onboarding-name button {
+    border:none;
+    outline: none;
+    background-color: var(--clr-primary);
+    margin-top: 1.5rem;
+    padding: 0.5rem 3rem;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.features p {
+    margin: 1rem 2rem 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.features i {
+    margin-right: 0.5rem;
+    color: var(--clr-primary);
+}
+
+.steps i {
+    margin-right: 0.75rem;
+    color: var(--clr-primary-500);
+    font-size: 1.25rem;
+}
+
+.steps p {
+    margin: 0.5rem 0;
+}
+
+.notifs i {
+    margin-right: 1rem;
+    color: var(--clr-primary-500);
+    font-size: 1.5rem;
+}
+
+.notifs p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}

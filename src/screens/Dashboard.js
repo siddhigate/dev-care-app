@@ -13,13 +13,16 @@ import * as mobilenetModule from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
 import * as tf from "@tensorflow/tfjs";
 import { model } from "@tensorflow/tfjs";
+import Onboarding from "../components/onboarding/Onboarding";
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
-    return (<TimerClock
-      minutes={zeroPad(minutes)}
-      seconds={zeroPad(seconds)}
-    ></TimerClock>)
+    return (
+      <TimerClock
+        minutes={zeroPad(minutes)}
+        seconds={zeroPad(seconds)}
+      ></TimerClock>
+    );
   } else {
     return (
       <TimerClock
@@ -49,8 +52,17 @@ let i = 0;
 const classifier = knnClassifier.create();
 
 function Dashboard() {
-  const [time, setTime] = useState(50000);
+  let visitedHome = localStorage.getItem("visited");
+  let name = localStorage.getItem("name");
+
+  const [time, setTime] = useState(50);
   const [isCamOn, setIsCamOn] = useState(false);
+
+  const [isStarted, setIsStarted] = useState(false);
+
+  const [backOption, setBackOption] = useState(true);
+  const [eyeOption, setEyeOption] = useState(true);
+  const [soundOption, setSoundOption] = useState(true);
 
   const webcamRef = useRef(null);
   const timerRef = useRef(null);
@@ -58,34 +70,47 @@ function Dashboard() {
   const startHandler = () => {
     let timerAPI = timerRef.current.getApi();
     timerAPI.start();
+    setIsStarted(true);
+  };
+
+  const stopHandler = () => {
+    let timerAPI = timerRef.current.getApi();
+    timerAPI.stop();
+    setIsStarted(false);
   };
 
   const onComplete = () => {
-    setIsCamOn(true);
-    notify(window.location.href);
+    if (backOption) {
+      setIsCamOn(true);
+    }
+    if(eyeOption) {
+      notify(window.location.href, soundOption);
+    }
     restart();
-  }
-
-  useEffect(() => {
-    if(isCamOn === true)
-      classifyPic();
-  },[isCamOn])
-
-  const restart = () => {
-
-    console.log(i);
-    if(i === 0){
-      setTime(time + 1);
-      i = 1;
-    }
-    else  {
-      setTime(time - 1);
-      i = 0;
-    }
-      
   };
 
   useEffect(() => {
+    if (isCamOn === true) classifyPic();
+  }, [isCamOn]);
+
+  const restart = () => {
+    console.log(i);
+    if (i === 0) {
+      setTime(time + 1);
+      i = 1;
+    } else {
+      setTime(time - 1);
+      i = 0;
+    }
+    startHandler();
+  };
+
+  useEffect(() => {
+    stopHandler();
+    let eyedata = localStorage.getItem("eyedata");
+    if (!eyedata) {
+      localStorage.setItem("eyedata", JSON.stringify([0, 0, 0, 0, 0, 0, 0]));
+    }
     navigator.serviceWorker.register("sw.js");
     let str = localStorage.getItem("myData");
     if (str) {
@@ -97,39 +122,31 @@ function Dashboard() {
     }
   }, []);
 
-  // const stopHandler = () => {
-
-  //   let timerAPI = timerRef.current.getApi();
-  //   timerAPI.stop();
-  // }
-
-  // const pauseHandler = () => {
-
-  //   let timerAPI = timerRef.current.getApi();
-  //   timerAPI.pause();
-  // }
-
   const classifyPic = async () => {
-    // setResult("finding if your posture is correct")
-    console.log("classifying");
-    let net = await mobilenetModule.load();
-    const img = webcamRef.current.video;
-    // Get the activation from mobilenet from the webcam.
-    const activation = net.infer(img, true);
-    const result = await classifier.predictClass(activation);
-    console.log(result);
-    setIsCamOn(false)
-    if(result.label === "1") {
-      notifySitStraight();
-    }
-    else {
-
+    if (backOption) {
+      console.log("classifying");
+      let net = await mobilenetModule.load();
+      const img = webcamRef.current.video;
+      const activation = net.infer(img, true);
+      const result = await classifier.predictClass(activation);
+      console.log(result);
+      setIsCamOn(false);
+      if (result.label === "1") {
+        notifySitStraight();
+        let badposturecount = Number(localStorage.getItem("badposturecount"));
+        if (!badposturecount) {
+          badposturecount = 0;
+        }
+        localStorage.setItem("badposturecount", badposturecount + 1);
+      } else {
+        let goodposturecount = Number(localStorage.getItem("goodposturecount"));
+        if (!goodposturecount) {
+          goodposturecount = 0;
+        }
+        localStorage.setItem("goodposturecount", goodposturecount + 1);
+      }
     }
   };
-
-  useEffect(() => {
-    startHandler();
-  }, [time]);
 
   return (
     <>
@@ -137,24 +154,36 @@ function Dashboard() {
       <div className="main-wrapper">
         <Sidebar></Sidebar>
         <main className="main">
-          <h1>Hello Siddhi👋</h1>
+          <h1>Hello {name && <span>{name}</span>}👋</h1>
 
           <div className="main-content">
             <div className="timer">
               <Countdown
                 ref={timerRef}
                 date={Date.now() + time * 60}
-                autoStart={true}
+                autoStart={false}
                 renderer={renderer}
                 onComplete={onComplete}
               />
-              <Toggles />
+              <Toggles
+                backOption={backOption}
+                eyeOption={eyeOption}
+                soundOption={soundOption}
+                setBackOption={setBackOption}
+                setEyeOption={setEyeOption}
+                setSoundOption={setSoundOption}
+              />
             </div>
-            <div className="cta">
+            <div className="cta flex-col">
               <div>
                 <button className="btn btn-primary" onClick={restart}>
                   Start
                 </button>
+                {isStarted && (
+                  <button className="btn btn-secondary" onClick={stopHandler}>
+                    Stop
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -162,22 +191,22 @@ function Dashboard() {
 
         <Score />
       </div>
-      {
-        isCamOn && <Webcam
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        style={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          textAlign: "center",
-          zindex: 9,
-          width: 640,
-          height: 480,
-          display: "block",
-        }}
-      />
-      }
-      
+      {isCamOn && (
+        <Webcam
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+            display: "block",
+          }}
+        />
+      )}
+      {!visitedHome && <Onboarding></Onboarding>}
     </>
   );
 }

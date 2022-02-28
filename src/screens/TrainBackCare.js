@@ -27,6 +27,9 @@ const classifier = knnClassifier.create();
 
 const TrainBackCare = () => {
   const [isError, setIsError] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+  const [showAlert, setShowAlert] = useState(true);
+  const [showDoneModal, setShowDoneModal] = useState(false);
   const [goodPicsCount, setGoodPicsCount] = useState(0);
   const [badPicsCount, setBadPicsCount] = useState(0);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -69,17 +72,18 @@ const TrainBackCare = () => {
     localStorage.setItem("myData", jsonStr);
     console.log("done", localStorage.getItem("myData"));
     setIsTrained(true);
+    setShowDoneModal(true);
   };
 
   const classifyPic = async () => {
-    setResult("finding if your posture is correct")
+    setResult("finding if your posture is correct");
     let net = await mobilenetModule.load();
     const img = webcamRef.current.video;
     // Get the activation from mobilenet from the webcam.
     const activation = net.infer(img, true);
     const result = await classifier.predictClass(activation);
     console.log(result);
-    setResult(result.label)
+    setResult(result.label);
   };
 
   const showError = () => {
@@ -92,8 +96,12 @@ const TrainBackCare = () => {
     }
   }, [goodPicsCount, badPicsCount]);
 
+  useEffect(() => {
+    localStorage.setItem("visited", true);
+  }, []);
+
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <Nav></Nav>
 
       <main className="container-center-lg mt-xl">
@@ -136,10 +144,10 @@ const TrainBackCare = () => {
               </div>
             )}
             <button className="bg-green" onClick={() => trainModel("good")}>
-              Take Good Pic <span>{goodPicsCount}</span>
+              Take Good Posture Pic <span>{goodPicsCount}</span>
             </button>
             <button className="bg-red" onClick={() => trainModel("bad")}>
-              Take Bad Pic <span>{badPicsCount}</span>
+              Take Bad Posture Pic <span>{badPicsCount}</span>
             </button>
             <button
               className="bg-primary"
@@ -153,7 +161,8 @@ const TrainBackCare = () => {
                 Test Check Posture
               </button>
             )}
-            { (isTrained && result)  && <div className="txt-center">{result}</div>}
+            {isTrained && result && <div className="txt-center">{result}</div>}
+            {isTrained && <Link to="/"> <p className="txt-center fs-md mt-md txt-primary"> <span style={{borderBottom: "1px solid var(--clr-primary"}}>Back to home</span></p></Link>}
           </div>
         </div>
       </main>
@@ -184,7 +193,97 @@ const TrainBackCare = () => {
           </div>
         </Modal>
       )}
-    </>
+
+      {showModal && (
+        <Modal>
+          <div className="onboarding-name">
+            <div className="flex flex-justify-between flex-items-center">
+              <h2 className="fs-xl" style={{ flexGrow: "1" }}>
+                Back Care
+              </h2>
+              <img
+                src="./assets/cartoon/smileydev.svg"
+                style={{ width: "50%" }}
+              ></img>
+            </div>
+
+            <div>
+              <div className="flex flex-col flex-wrap fs-sm steps">
+                <p className="mb-sm">
+                  <i className="fa-solid fa-camera"></i>Take pictures of good and
+                  bad posture{" "}
+                </p>
+                <p className="mb-sm">
+                  <i className="fa-solid fa-check"></i>Click on Done to finish
+                </p>
+                <p className="mb-sm">
+                  <i className="fa-solid fa-circle-info"></i>More the pics better it
+                  will be to detect{" "}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col flex-items-end">
+              <button
+                style={{ background: "var(--clr-primary-500) " }}
+                onClick={() => setShowModal(false)}
+              >
+                Let's go
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {showAlert && (
+        <div className="alert-yellow flex flex-items-center">
+          We don't save your data. Everything resides only on your browser.{" "}
+          <i className="fa-solid fa-xmark" onClick={() => setShowAlert(false)}></i>
+        </div>
+      )}
+
+      {showDoneModal && (
+        <Modal>
+          <div className="onboarding-name" style={{position: "relative"}}>
+            <i className="fa-solid fa-xmark" style={{position: "absolute", top:"5px", right:"5px", cursor: "pointer"}} onClick={() => setShowDoneModal(false)}></i>
+            <div className="flex flex-justify-between flex-items-center">
+              <h2 className="fs-xl" style={{ flexGrow: "1" }}>
+                Yayy!
+              </h2>
+              <img
+                src="./assets/cartoon/happydev.svg"
+                style={{ width: "50%" }}
+              ></img>
+            </div>
+
+            <div>
+              <div className="flex flex-col flex-wrap fs-sm steps">
+              <p className="mb-sm fs-md">
+                  Now the app knows what a correct posture is. We are ready to use the app now!
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-justify-center">
+              <Link to="/">
+              <button
+                style={{ background: "var(--clr-primary-500)", margin:"1.25rem 1rem 0 1rem" }}
+                onClick={() => setShowDoneModal(false)}
+              >
+                Home
+              </button>
+              </Link>
+              
+              <button
+                style={{ background: "var(--clr-primary-500)", margin:"1.25rem 1rem 0 1rem" }}
+                onClick={() => setShowDoneModal(false)}
+              >
+                Test
+              </button>
+              
+            </div>
+          </div>
+        </Modal>
+      )}
+    </div>
   );
 };
 

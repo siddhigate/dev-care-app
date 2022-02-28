@@ -7,9 +7,10 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+  Filler,
+} from "chart.js";
+import { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
 
 ChartJS.register(
   CategoryScale,
@@ -23,21 +24,37 @@ ChartJS.register(
 );
 
 
-const labels = ["1", "2", "3", "4", "5" , "6", "7"];
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First Dataset',
-    fill:true,
-    data: [65, 59, 80, 81, 56, 55, 40],
-    borderColor: 'rgba(0, 153, 246, 0.5)',
-    backgroundColor: 'rgba(0, 153, 246, 0.2)',
-    responsive: true
-  }]
-};
-
 export function LineChart() {
-  return <Line data={data} options = {{
-    responsive: true,
-    maintainAspectRatio: false}}/>;
+  const [eyeData, setEyeData] = useState([0, 0, 0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    let eyedata = JSON.parse(localStorage.getItem("eyedata"));
+    setEyeData(eyedata);
+  }, []);
+
+  const labels = ["1", "2", "3", "4", "5", "6", "7"];
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Eye Care Exercises Analysis",
+        fill: true,
+        data: eyeData,
+        borderColor: "rgba(0, 153, 246, 0.5)",
+        backgroundColor: "rgba(0, 153, 246, 0.2)",
+        responsive: true,
+      },
+    ],
+  };
+
+
+  return (
+    <Line
+      data={data}
+      options={{
+        responsive: true,
+        maintainAspectRatio: false,
+      }}
+    />
+  );
 }

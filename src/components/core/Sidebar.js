@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar = ({navigate}) => {
+const Sidebar = () => {
   return (
     <aside className="sidebar">
       <ul className="sidebar-links">
@@ -24,10 +24,10 @@ const Sidebar = ({navigate}) => {
           <span>Eye Care</span>
         </li>
         </Link>
-        <Link to="/earcare">
+        <Link to="/aboutus">
         <li>
-          <i className="fa-solid fa-ear-listen"></i>
-          <span>Ear Care</span>
+          <i className="fa-solid fa-circle-info"></i>
+          <span>About us</span>
         </li>
         </Link>
       </ul>
