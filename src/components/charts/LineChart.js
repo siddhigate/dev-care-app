@@ -32,7 +32,7 @@ export function LineChart() {
     setEyeData(eyedata);
   }, []);
 
-  const labels = ["1", "2", "3", "4", "5", "6", "7"];
+  const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const data = {
     labels: labels,
     datasets: [

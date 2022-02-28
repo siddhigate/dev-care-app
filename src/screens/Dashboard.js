@@ -57,7 +57,7 @@ function Dashboard() {
   let visitedHome = localStorage.getItem("visited");
   let name = localStorage.getItem("name");
 
-  const [time, setTime] = useState(50);
+  const [time, setTime] = useState(20000);
   const [isCamOn, setIsCamOn] = useState(false);
 
   const [isStarted, setIsStarted] = useState(false);

@@ -42,7 +42,7 @@ const Toggles = ({
         </div>
       </div>
       <div className="option">
-        <div>Sound:</div>
+        <div>Ear Care:</div>
         <div>
           <label className="switch">
             <input
