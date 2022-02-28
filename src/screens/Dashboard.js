@@ -12,13 +12,14 @@ import {
   notifySitStraight,
 } from "../services/notifications";
 import { setEarData } from "../services/datahandling";
-
+import ReactGA from 'react-ga';
 import Webcam from "react-webcam";
 import * as mobilenetModule from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
 import * as tf from "@tensorflow/tfjs";
 import { model } from "@tensorflow/tfjs";
 import Onboarding from "../components/onboarding/Onboarding";
+import { useLocation } from "react-router-dom";
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
@@ -72,6 +73,8 @@ function Dashboard() {
   const [isPluggedOut, setIsPluggedOut] = useState();
   const [earDeviceId, setEarDeviceId] = useState("");
 
+  let location = useLocation();
+
   const webcamRef = useRef(null);
   const timerRef = useRef(null);
 
@@ -118,6 +121,7 @@ function Dashboard() {
   };
 
   useEffect(() => {
+    ReactGA.pageview(location.pathname);
     stopHandler();
     let eyedata = localStorage.getItem("eyedata");
     if (!eyedata) {

@@ -8,6 +8,9 @@ import Exercise from "./screens/Exercise";
 import TrainBackCare from "./screens/TrainBackCare";
 import Aboutus from "./screens/Aboutus";
 import HowtoUse from "./screens/HowtoUse";
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-221653527-1');
 
 function App() {
   return (
