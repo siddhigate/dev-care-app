@@ -21,12 +21,11 @@ export const notify = (url) => {
       });
     }
   });
-  
-    const audio = new Audio(
-      "https://soundbible.com/mp3/service-bell_daniel_simion.mp3"
-    );
-    audio.play();
-  
+
+  const audio = new Audio(
+    "https://soundbible.com/mp3/service-bell_daniel_simion.mp3"
+  );
+  audio.play();
 };
 
 export const notifySitStraight = (url) => {
@@ -70,10 +69,9 @@ export const notifyEar = (url) => {
       });
     }
   });
-  
-    const audio = new Audio(
-      "https://soundbible.com/mp3/service-bell_daniel_simion.mp3"
-    );
-    audio.play();
-  
+
+  const audio = new Audio(
+    "https://soundbible.com/mp3/service-bell_daniel_simion.mp3"
+  );
+  audio.play();
 };

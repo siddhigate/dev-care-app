@@ -6,8 +6,12 @@ import TimerClock from "../components/core/TimerClock";
 import Toggles from "../components/core/Toggles";
 import Countdown, { zeroPad } from "react-countdown";
 import { useEffect, useRef, useState } from "react";
-import { notify, notifyEar, notifySitStraight } from "../services/notifications";
-import {setEarData} from "../services/datahandling";
+import {
+  notify,
+  notifyEar,
+  notifySitStraight,
+} from "../services/notifications";
+import { setEarData } from "../services/datahandling";
 
 import Webcam from "react-webcam";
 import * as mobilenetModule from "@tensorflow-models/mobilenet";
@@ -87,10 +91,10 @@ function Dashboard() {
     if (backOption) {
       setIsCamOn(true);
     }
-    if(eyeOption) {
+    if (eyeOption) {
       notify(window.location.href);
     }
-    if(soundOption && timeCounter%2 === 0 && !isPluggedOut){
+    if (soundOption && timeCounter % 2 === 0 && !isPluggedOut) {
       notifyEar(window.location.href);
       setEarData();
     }
@@ -103,7 +107,6 @@ function Dashboard() {
   }, [isCamOn]);
 
   const restart = () => {
-    console.log(i);
     if (i === 0) {
       setTime(time + 1);
       i = 1;
@@ -127,22 +130,19 @@ function Dashboard() {
     navigator.serviceWorker.register("sw.js");
     let str = localStorage.getItem("myData");
     if (str) {
-      console.log("mydata", JSON.parse(str));
       classifier.setClassifierDataset(
         fromDatasetObject(JSON.parse(localStorage.getItem("myData")))
       );
-      console.log(classifier.getNumClasses());
     }
   }, []);
 
   const classifyPic = async () => {
     if (backOption) {
-      console.log("classifying");
       let net = await mobilenetModule.load();
       const img = webcamRef.current.video;
       const activation = net.infer(img, true);
       const result = await classifier.predictClass(activation);
-      console.log(result);
+
       setIsCamOn(false);
       if (result.label === "1") {
         notifySitStraight();
@@ -166,23 +166,13 @@ function Dashboard() {
     navigator.mediaDevices
       .getUserMedia({ video: false, audio: true })
       .then((stream) => {
-        console.log(stream);
-
-        console.log(stream.getAudioTracks()[0].getSettings());
-
         setEarDeviceId(stream.getAudioTracks()[0].getSettings().deviceId);
-        console.log("0",stream.getAudioTracks()[0].getSettings().deviceId)
-        console.log("00",stream.getAudioTracks()[0].getSettings())
-        console.log("plugged in", earDeviceId);
-        if(earDeviceId == "default") {
-          console.log("defaultttttttttttttttttt")
-          setEarDeviceId(stream.getAudioTracks()[0].getSettings().groupId)
+
+        if (earDeviceId == "default") {
+          setEarDeviceId(stream.getAudioTracks()[0].getSettings().groupId);
         }
 
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-          // console.log("first devices");
-          // console.log(devices);
-
+        navigator.mediaDevices.enumerateDevices().then(() => {
           let recorder = new MediaRecorder(stream);
           recorder.stream.getAudioTracks().forEach(function (track) {
             track.enabled = false;
@@ -191,39 +181,32 @@ function Dashboard() {
       })
       .catch((err) => {
         setSoundOption(false);
-        console.log("u got an error:" + err);
       });
-  }
+  };
 
   useEffect(() => {
     if (soundOption) {
-      console.log("on");
       setIsPluggedOut(false);
       getLocalStream();
     }
   }, [soundOption]);
 
   navigator.mediaDevices.addEventListener("devicechange", () => {
-    console.log("here12");
-
-    // whenever device is plugged in or plugged out
     navigator.mediaDevices.enumerateDevices().then((devices) => {
-      // console.log("change");
-      // console.log(devices);
-      console.log(devices[0]);
       var pluggedout = true;
       for (let i = 0; i < devices.length; i++) {
-        if (devices[i].deviceId == earDeviceId != devices[i].groupId == earDeviceId) {
+        if (
+          ((devices[i].deviceId == earDeviceId) != devices[i].groupId) ==
+          earDeviceId
+        ) {
           pluggedout = false;
         }
       }
       if (pluggedout) {
         setIsPluggedOut(true);
-        console.log("plugged out");
       }
     });
   });
-
 
   return (
     <>
