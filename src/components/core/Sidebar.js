@@ -27,13 +27,13 @@ const Sidebar = () => {
         <Link to="/earcare">
         <li>
           <i className="fa-solid fa-ear-listen"></i>
-          <span>Eear Care</span>
+          <span>Ear Care</span>
         </li>
         </Link>
         <Link to="/aboutus">
         <li>
           <i className="fa-solid fa-circle-info"></i>
-          <span>About us</span>
+          <span>About</span>
         </li>
         </Link>
       </ul>
