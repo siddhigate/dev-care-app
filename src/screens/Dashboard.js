@@ -12,7 +12,6 @@ import {
   notifySitStraight,
 } from "../services/notifications";
 import { setEarData } from "../services/datahandling";
-import ReactGA from "react-ga";
 import Webcam from "react-webcam";
 import * as mobilenetModule from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
