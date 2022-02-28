@@ -7,6 +7,7 @@ import EarCare from "./screens/EarCare";
 import Exercise from "./screens/Exercise";
 import TrainBackCare from "./screens/TrainBackCare";
 import Aboutus from "./screens/Aboutus";
+import HowtoUse from "./screens/HowtoUse";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/exercise" element={<Exercise />} />
         <Route path="/teachbackcare" element={<TrainBackCare />} />
         <Route path="/aboutus" element={<Aboutus />} />
+        <Route path="/howtouse" element={<HowtoUse />} />
       </Routes>
     </BrowserRouter>
   );

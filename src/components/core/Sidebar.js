@@ -29,10 +29,10 @@ const Sidebar = () => {
             <span>Ear Care</span>
           </li>
         </Link>
-        <Link to="/aboutus">
+        <Link to="/howtouse">
           <li>
-            <i className="fa-solid fa-circle-info"></i>
-            <span>About</span>
+          <i class="fa-solid fa-circle-question"></i>
+            <span>How to use</span>
           </li>
         </Link>
       </ul>
