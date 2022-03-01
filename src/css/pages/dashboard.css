@@ -89,6 +89,11 @@
   background-color: var(--clr-primary-600);
 }
 
+.btn-primary:disabled {
+  cursor: no-drop;
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 1300px) {
   .sidebar-links i {
     font-size: 1.5rem;

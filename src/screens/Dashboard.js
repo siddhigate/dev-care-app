@@ -70,6 +70,7 @@ function Dashboard() {
   const [soundOption, setSoundOption] = useState(false);
   const [isPluggedOut, setIsPluggedOut] = useState();
   const [earDeviceId, setEarDeviceId] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const webcamRef = useRef(null);
   const timerRef = useRef(null);
@@ -134,6 +135,16 @@ function Dashboard() {
       );
     }
   }, []);
+
+  useEffect(() => {
+    console.log(eyeOption, backOption, soundOption)
+    if(eyeOption || backOption || soundOption) {
+      setIsDisabled(false)
+    }
+    else {
+      setIsDisabled(true);
+    }
+  }, [eyeOption, backOption, soundOption]);
 
   const classifyPic = async () => {
     if (backOption) {
@@ -235,7 +246,7 @@ function Dashboard() {
             </div>
             <div className="cta flex-col">
               <div>
-                <button className="btn btn-primary" onClick={restart}>
+                <button className="btn btn-primary" onClick={restart} disabled={isDisabled}>
                   Start
                 </button>
                 {isStarted && (
