@@ -6,7 +6,7 @@ import EyeCare from "./screens/EyeCare";
 import EarCare from "./screens/EarCare";
 import Exercise from "./screens/Exercise";
 import TrainBackCare from "./screens/TrainBackCare";
-import Aboutus from "./screens/Aboutus";
+import AboutUs from "./screens/Aboutus";
 import HowtoUse from "./screens/HowtoUse";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <Route path="/earcare" element={<EarCare />} />
         <Route path="/exercise" element={<Exercise />} />
         <Route path="/teachbackcare" element={<TrainBackCare />} />
-        <Route path="/aboutus" element={<Aboutus />} />
+        <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/howtouse" element={<HowtoUse />} />
       </Routes>
     </BrowserRouter>
