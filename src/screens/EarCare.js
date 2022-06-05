@@ -33,9 +33,9 @@ function EarCare() {
               </button>
             </div>
             <div className="card">
-              <p className="fw-bold fs-lg">Eye Exercises</p>
+              <p className="fw-bold fs-lg">Ear Exercises</p>
               <p className="fs-sm mb-md">
-                Get to know some eye exercises to relax your eyes.
+                Get to know how to take care of your ears.
               </p>
               <button
                 className="btn btn-primary"
